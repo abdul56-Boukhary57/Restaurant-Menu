@@ -9,4 +9,4 @@
 <h1>Favorite Meals Screen</h1>
   <img src="https://github.com/user-attachments/assets/f5863fd6-f74d-4d07-8fdd-6c7dc0fdf54c" alt="Favorite Meals Screen">
 <h1>Filter Meals Screen</h1>
-  <img src="https://github.com/user-attachments/assets/e5df0bf5-fddd-4d42-b881-eace06bc7c47" alt="Filter Meals Screen">
+  <img src="https://github.com/user-attachments/assets/deb336df-d8f9-4625-b87a-99b9d295f148" alt="Filter Meals Screen">
