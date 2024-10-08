@@ -1,21 +1,42 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:test_meals/Providers/favorites_provider.dart';
 
 import '../models/meal.dart';
 
-class MealDetailSc extends StatelessWidget {
+class MealDetailSc extends ConsumerWidget {
   final Meal meal;
-  final void Function(Meal meal) onToggleFavorite;
 
-  const MealDetailSc(
-      {Key? key, required this.meal, required this.onToggleFavorite})
-      : super(key: key);
+  const MealDetailSc({Key? key, required this.meal}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final List<Meal> favoriteMeals = ref.watch(favoritesMealsProvider);
+    final bool isFavorite = favoriteMeals.contains(meal);
     return Scaffold(
       appBar: AppBar(
         title: const Text('Meal Details'),
-        actions: [IconButton(onPressed: ()=>onToggleFavorite(meal), icon: const Icon(Icons.star))],
+        actions: [
+          IconButton(
+            onPressed: () {
+              final bool wasAdded = ref
+                  .read(favoritesMealsProvider.notifier)
+                  .toggleMealFavoriteStatus(meal);
+              ScaffoldMessenger.of(context).clearSnackBars();
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: Text(wasAdded
+                      ? 'Meal was added successfully'
+                      : 'Meal was removed successfully'),
+                ),
+              );
+            },
+            icon: Icon(
+              isFavorite ? Icons.star : Icons.star_border,
+              color: Colors.amber,
+            ),
+          ),
+        ],
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -41,7 +62,9 @@ class MealDetailSc extends StatelessWidget {
                     decoration: TextDecoration.underline)),
             const SizedBox(height: 10),
             for (final step in meal.steps)
-              Text(step, style: const TextStyle(fontSize: 22, height: 1.5) , textAlign: TextAlign.center),
+              Text(step,
+                  style: const TextStyle(fontSize: 22, height: 1.5),
+                  textAlign: TextAlign.center),
           ],
         ),
       ),

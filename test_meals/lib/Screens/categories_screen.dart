@@ -6,9 +6,8 @@ import '../models/meal.dart';
 
 class CategoryScreen extends StatelessWidget {
   final List<Meal> availableMeals;
-  final void Function(Meal meal) onToggleFavorite;
 
-  const CategoryScreen({Key? key, required this.availableMeals, required this.onToggleFavorite})
+  const CategoryScreen({Key? key, required this.availableMeals})
       : super(key: key);
 
   @override
@@ -23,8 +22,11 @@ class CategoryScreen extends StatelessWidget {
           childAspectRatio: 3 / 2,
         ),
         children: [
-          for(final category in availableCategories)
-            CategoryGridItem(category: category, availableMeals: availableMeals, onToggleFavorite: onToggleFavorite,)
+          for (final category in availableCategories)
+            CategoryGridItem(
+              category: category,
+              availableMeals: availableMeals,
+            )
         ],
       ),
     );

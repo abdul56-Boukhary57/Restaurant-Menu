@@ -5,19 +5,31 @@ import '../models/meal.dart';
 
 class CategoryGridItem extends StatelessWidget {
   final Category category;
-  final void Function (Meal meal) onToggleFavorite;
+
   final List<Meal> availableMeals;
 
-  const CategoryGridItem(
-      {Key? key, required this.category, required this.availableMeals, required this.onToggleFavorite})
-      : super(key: key);
+  const CategoryGridItem({
+    Key? key,
+    required this.category,
+    required this.availableMeals,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        final filteredMeals = availableMeals.where((m) => m.categories.contains(category.id)).toList();
-        Navigator.push(context, MaterialPageRoute(builder: (ctx)=> MealScreen(title: category.title ,meals: filteredMeals, onToggleFavorite: onToggleFavorite)));
+        final filteredMeals = availableMeals
+            .where((m) => m.categories.contains(category.id))
+            .toList();
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (ctx) => MealScreen(
+              title: category.title,
+              meals: filteredMeals,
+            ),
+          ),
+        );
       },
       splashColor: Theme.of(context).primaryColor,
       borderRadius: BorderRadius.circular(20),

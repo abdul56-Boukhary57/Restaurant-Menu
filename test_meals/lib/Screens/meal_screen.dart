@@ -6,42 +6,44 @@ import '../models/meal.dart';
 class MealScreen extends StatelessWidget {
   final String? title;
   final List<Meal> meals;
-  final void Function(Meal meal) onToggleFavorite;
 
-  const MealScreen(
-      {Key? key,
-      this.title,
-      required this.meals,
-      required this.onToggleFavorite})
-      : super(key: key);
+  const MealScreen({
+    Key? key,
+    this.title,
+    required this.meals,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return title == null
         ? content(context)
         : Scaffold(
-            appBar: AppBar(title:  Text(title!)),
+            appBar: AppBar(title: Text(title!)),
             body: content(context),
           );
   }
 
   SingleChildScrollView content(BuildContext context) {
     return SingleChildScrollView(
-          child: Column(
-            children: meals
-                .map(
-                  (meal) => MealItem(
-                    meal: meal,
-                    onSelectedMeal: (Meal meal) {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (ctx) => MealDetailSc(meal: meal, onToggleFavorite: onToggleFavorite,)));
-                    },
-                  ),
-                )
-                .toList(),
-          ),
-        );
+      child: Column(
+        children: meals
+            .map(
+              (meal) => MealItem(
+                meal: meal,
+                onSelectedMeal: (Meal meal) {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (ctx) => MealDetailSc(
+                        meal: meal,
+                      ),
+                    ),
+                  );
+                },
+              ),
+            )
+            .toList(),
+      ),
+    );
   }
 }
